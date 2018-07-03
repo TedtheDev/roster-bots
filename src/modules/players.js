@@ -1,5 +1,3 @@
-import FakeRoster from '../../utils/fakeRoster';
-
 //types
 const CREATE_PLAYERS = 'create_players';
 
@@ -7,16 +5,17 @@ const CREATE_PLAYERS = 'create_players';
 export default function reducer(state={players:[]}, action) {
     switch(action.type) {
         case CREATE_PLAYERS:
-            return {...state, players: action.payload};
+            let currentPlayers = state.players;
+            const players = currentPlayers.concat(action.newPlayers);
+            return {...state, players: players};
         default:
             return state;
     }
 }
 
 //actions
-export const generateRandomRoster = () => {
+export const addPlayers = (players) => {
     return (dispatch) => {
-        const randomPlayers = FakeRoster.generate(15);
-        dispatch({type: CREATE_PLAYERS, payload: randomPlayers});
+        dispatch({type: CREATE_PLAYERS, newPlayers: players});
     }
 }
