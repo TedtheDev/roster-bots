@@ -27,7 +27,6 @@
     "react-test-renderer": "^16.4.1"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./src/setupTests.js",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]
