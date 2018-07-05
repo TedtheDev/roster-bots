@@ -3,9 +3,11 @@ import styled from 'styled-components';
 
 const Input = styled.input`
     border: none;
-    outline: none;
+    outline: ${props => props.duplicateError ? `3px solid red` : `none`};
     background: ${props => props.editable ? `white` : `transparent`};
-
+    &:focus {
+        outline: 1px solid green;
+    }
 `;
 
 export class EditableInput extends Component {
@@ -19,7 +21,6 @@ export class EditableInput extends Component {
         this.setState({editable: true});
     }
 
-    // TODO: add dispatch to update player
     onKeyPressEnter = (event) => {
         if(event.key === 'Enter') {
             this.setState({editable: false})
@@ -33,6 +34,7 @@ export class EditableInput extends Component {
     render() {
         return (
             <Input 
+                duplicateError={this.props.error}
                 onClick={this.onClickEditable}
                 onBlur={this.onBlurInput} 
                 onKeyPress={this.onKeyPressEnter} 

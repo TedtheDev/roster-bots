@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EditableInput /> renders correctly 1`] = `"{\\"type\\":\\"input\\",\\"props\\":{\\"className\\":\\"sc-bdVaJa dUqDqt\\"},\\"children\\":null}"`;

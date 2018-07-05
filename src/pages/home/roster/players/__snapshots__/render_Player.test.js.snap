@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Player /> renders correctly 1`] = `"[{\\"type\\":\\"input\\",\\"props\\":{\\"className\\":\\"sc-bdVaJa dUqDqt\\",\\"type\\":\\"text\\",\\"value\\":\\"Frank\\"},\\"children\\":null},{\\"type\\":\\"input\\",\\"props\\":{\\"className\\":\\"sc-bdVaJa dUqDqt\\",\\"type\\":\\"text\\",\\"value\\":\\"Frank\\"},\\"children\\":null},{\\"type\\":\\"div\\",\\"props\\":{},\\"children\\":[\\"57\\",\\" \\"]},{\\"type\\":\\"div\\",\\"props\\":{},\\"children\\":[\\" \\",\\"3\\"]},{\\"type\\":\\"div\\",\\"props\\":{},\\"children\\":[\\" \\",\\"34\\"]},{\\"type\\":\\"div\\",\\"props\\":{},\\"children\\":[\\" \\",\\"20\\"]}]"`;

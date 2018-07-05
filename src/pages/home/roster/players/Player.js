@@ -1,34 +1,52 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { updatePlayer } from '../../../../modules/players';
+import PropTypes from 'prop-types';
 
 import EditableInput from '../../../../components/inputs/EditableInput';
 
-class Player extends Component {
+export class Player extends Component {
     constructor(props) {
         super(props);
 
-    }
-    
-    onClickEditable = () => {
-        this.setState({editable: true});
+        this.state = { playerFirstName: this.props.player.firstName, playerLastName: this.props.player.lastName };
     }
 
-    // TODO: add dispatch to update player
     onKeyPressSubmit = (event) => {
         if(event.key === 'Enter') {
-            console.log('dispatch')
+            let updatedPlayer= Object.assign({}, this.props.player);
+            updatedPlayer.firstName = this.state.playerFirstName;
+            updatedPlayer.lastName = this.state.playerLastName;
+            this.props.dispatch(updatePlayer(updatedPlayer));
         }
     }
 
-    onBlurInput = () => {
-        this.setState({editable: false});
+    onChangePlayerFirstName = (event) => {
+        this.setState({playerFirstName: event.target.value});
+    }
+
+    onChangePlayerLastName = (event) => {
+        this.setState({playerLastName: event.target.value});
     }
 
     render() {
         return (
             <React.Fragment>
-                <EditableInput onKeyPress={this.onKeyPressSubmit} type='text' value={this.props.player.firstName} />
-                <EditableInput  type='text' value={this.props.player.lastName} />
+                <EditableInput 
+                    error={this.props.duplicateError} 
+                    onKeyPress={this.onKeyPressSubmit} 
+                    type='text' 
+                    onChange={this.onChangePlayerFirstName} 
+                    value={this.state.playerFirstName} 
+                />
+                <EditableInput 
+                    error={this.props.duplicateError} 
+                    onKeyPress={this.onKeyPressSubmit} 
+                    type='text' 
+                    onChange={this.onChangePlayerLastName} 
+                    value={this.state.playerLastName} 
+                />
+
                 <div>{this.props.player.strength + this.props.player.agility + this.props.player.speed} </div>
                 <div> {this.props.player.strength}</div>
                 <div> {this.props.player.agility}</div>
@@ -38,5 +56,16 @@ class Player extends Component {
     }
     
 }
+
+Player.propTypes = {
+    duplicateError: PropTypes.bool.isRequired,
+    player: PropTypes.shape({
+        firstName: PropTypes.string.isRequired,
+        lastName: PropTypes.string.isRequired,
+        strength: PropTypes.number.isRequired,
+        agility: PropTypes.number.isRequired,
+        speed: PropTypes.number.isRequired
+    })
+};
 
 export default connect(null)(Player);
