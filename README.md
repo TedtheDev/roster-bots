@@ -28,3 +28,9 @@ I really like using styled-components to keep CSS close to the component. CSS Mo
 Used faker to generate random data from names, id's, and numbers. I created a utility 'library' to help generate random data, but also be able to adhere to the requirements of having unique names and attributes. I implemented some checking there in the generateUnique() method in the FakeRoster factory.
 ### Project structure
 I chose to model after the [Fractal pattern](https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af). I believe this folder structure keeps your directory easier to navigate, keep things together in a logical format, and easier to scale. Another is I didn't use the container and presentational pattern for making components since it is a smaller app, but that could be easily changed too. If there was more logic, such as fetching data from an API or database, etc. then making container and presentation React components would be the way I would have implemented them.
+
+## Improvements
+- I can clean up some code. I feel like some of it can be optimized like finding duplicate players and how I handle passing player info down seems clunky. I would like to optimize some of that
+- I would like to write more tests and get them set up better. Some times it is a challenge to deal with redux mock store in tests
+- The styling of my components can be a lot better. It does work, but the styling is just a quick and dirty implementation
+- I would like to include more Prop Types. I do some prop type checking on components but would like to go through and make sure all components require the proper prop types
