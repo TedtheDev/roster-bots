@@ -1,30 +1,46 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createRoster } from '../modules/rosters';
+import styled from 'styled-components';
+
+import Roster from './home/Roster';
+
+const PlayerExistsWarning = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 5;
+    height: 10%;
+    width: 150px;
+    background: white;
+    border-radius: 10px;
+    color: black;
+    border: 2px solid red;
+    transform: ${props => props.duplicatePlayer ? `translateY(-90%)` : `translateY(-100%)`};
+    opacity: ${props => props.duplicatePlayer ? `1` : `0`};
+    transition: all .2s ease-in;
+`;
 
 export class Home extends Component {
 
-    renderPlayers = (players) => {
-        if(players.length > 0) {
-            return <ul>{players.map(player => <li key={player.id}>{player.firstName}</li>)}</ul>;
-        } else {
-            return <p>Click Button to Load List</p>
-        }
+    renderRosters = rosters => {
+        return rosters.map(rosterName => <Roster key={rosterName} rosterName={rosterName} />);
     }
 
     render() {
         return (
-            <React.Fragment>
-                <div><button type="button" onClick={() => this.props.dispatch(createRoster())}>Create Players</button></div>
-                <div>{this.renderPlayers(this.props.roster.players)}</div>
-            </React.Fragment>
+            <div>
+                <PlayerExistsWarning duplicatePlayer={this.props.players.duplicatePlayer !== null ? true : false}>{this.props.players.duplicatePlayer !== null ? `${this.props.players.duplicatePlayer.firstName} ${this.props.players.duplicatePlayer.lastName} already exists` : null}</PlayerExistsWarning>
+                {this.renderRosters(Object.keys(this.props.rosters))}
+            </div>
         )
     }
 }
 
 function mapStateToProps (state){
     return {
-        roster: state.roster.players
+        players: state.players,
+        rosters: state.rosters.rosters
     }
 }
 

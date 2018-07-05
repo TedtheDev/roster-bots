@@ -8,9 +8,11 @@ import Player from './players/Player';
 const PlayerDiv = styled.div`
     display: grid;
     grid-template: 1fr / repeat(6, 1fr);
-    background-color: ${ props => props.sub === true ? `yellow` : `green`};
+    grid-column-gap: 5px;
+    background-color: ${ props => props.sub === true ? `yellow` : `lightgreen`};
     justify-content: center;
-    align-content: center;
+    align-items: center;
+    margin: 3px;
 `;
 
 const PlayerTable = styled.div`
@@ -33,9 +35,15 @@ const PlayerData = styled.div`
     grid-template: 1fr / 1fr;
 `;
 
-const renderPlayers = (players, rosters, rosterName) =>{
-    console.log('rosters', rosters)
-    return rosters[rosterName].players.map((rosterPlayer) => <PlayerDiv key={rosterPlayer.id} sub={rosterPlayer.sub}><Player  player={players.filter(player => player.id === rosterPlayer.id)[0]} /></PlayerDiv>);
+const renderPlayers = (players, rosters, rosterName, duplicatePlayer) =>{
+    return rosters[rosterName].players.map((rosterPlayer) => {
+        return <PlayerDiv key={rosterPlayer.id} sub={rosterPlayer.sub}>
+                    <Player 
+                        duplicateError={duplicatePlayer ? rosterPlayer.id === duplicatePlayer.id : false} 
+                        player={players.filter(player => player.id === rosterPlayer.id)[0]} 
+                    />
+                </PlayerDiv>;
+    });
 };
 
 export class Players extends Component {
@@ -51,7 +59,7 @@ export class Players extends Component {
                     <div>Speed</div>
                 </PlayerHeader>
                 <PlayerData>
-                    {renderPlayers(this.props.players, this.props.rosters, this.props.rosterName)}
+                    {renderPlayers(this.props.players, this.props.rosters, this.props.rosterName, this.props.duplicatePlayer)}
                 </PlayerData>
             </PlayerTable>
         )
@@ -61,7 +69,8 @@ export class Players extends Component {
 const mapStateToProps = state => {
     return {
         rosters: state.rosters.rosters,
-        players: state.players.players
+        players: state.players.players,
+        duplicatePlayer: state.players.duplicatePlayer
     }
 }
 

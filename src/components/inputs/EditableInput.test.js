@@ -5,7 +5,6 @@ import EditableInput from './EditableInput';
 describe('<EditableInput />', () => {
     it('should contain an input', () => {
     const wrapper = mount(<EditableInput />);
-        console.log('input', wrapper.find('input'))
         expect(wrapper.find('input').length).toBe(1);
     });
 
